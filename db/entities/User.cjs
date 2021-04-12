@@ -12,4 +12,13 @@ export class User {
 	@Column()
 	last_name: string;
 
+	@Column
+	email: string;
+
+	@Column
+	email_verified_at: timestamp;
+
+	@Column
+	password: string;
+
 }

@@ -1,7 +1,7 @@
 import cors from 'cors';
 import 'reflect-metadata';
-import dotenv from 'dotenv';
 import express from 'express';
+import * as dotenv from 'dotenv';
 import { port, dbConfig, apiVersion } from './Config.js';
 
 // routes //

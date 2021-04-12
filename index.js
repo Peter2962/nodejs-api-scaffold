@@ -15,7 +15,8 @@ const app = express();
 const router = express.Router();
 
 const corsOptions = {
-	origin: '*'
+	origin: '*',
+	'content-type': 'application/json'
 };
 
 app.use(express.json());

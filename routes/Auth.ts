@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../db/entities/User';
+import { createConnection, getConnection } from 'typeorm';
 import { body, validationResult } from 'express-validator';
 import { generateAccessToken, authenticateToken } from '../Helpers.js';
 
@@ -33,8 +34,16 @@ router.post(
 		return res.json({errors: errors.array()});
 	}
 
-	const user = User.find({email: req.email, password: req.password});
-	return res.json(user);
+	(async() => {
+		const user = await User.find({email: req.body.email, password: req.body.password});
+		if (user.length < 1) {
+			return res.json({error: 'Account not found'});
+		}
+
+		const payload = user[0];
+		const accessToken = generateAccessToken({...payload});
+		return res.json({access_token: accessToken});
+	})();
 });
 
 router.post('/register', (req, res, next) => {

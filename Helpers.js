@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 export const generateAccessToken = (user, expiresIn = '60s') => {
 	return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn});

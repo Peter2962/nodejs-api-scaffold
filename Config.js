@@ -1,3 +1,3 @@
-export const port = 8899;
-export const dbConfig = {};
-export const apiVersion = 'v1';
+exports.port = 8899;
+exports.dbConfig = {};
+exports.apiVersion = 'v1';

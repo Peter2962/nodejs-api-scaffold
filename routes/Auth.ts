@@ -63,6 +63,11 @@ router.post(
 	}
 
 	(async() => {
+		const user = await User.find({email: req.body.email});
+		if (user.length > 0) {
+			return res.json({error: 'Account found'}, 500);
+		}
+
 		bcrypt.hash(req.body.password, 10, (err, hash) => {
 			const password = hash;
 			(async() => {

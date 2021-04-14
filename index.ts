@@ -22,8 +22,14 @@ createConnection().then(() => {
 	};
 
 	app.use(bodyParser.urlencoded({ extended: false }));
-	app.use(bodyParser.json());
-	app.use(express.json());
+	app.use(bodyParser.json({
+		type: 'application/json',
+		strict: true
+	}));
+	// app.use(express.json({
+	// 	type: 'application/json',
+	// 	strict: true
+	// }));
 	app.use(cors(corsOptions));
 
 	app.use(`/${apiVersion}/auth`, Auth);

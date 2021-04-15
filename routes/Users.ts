@@ -43,6 +43,30 @@ router.post(
 	})();
 });
 
+router.put(
+	'/:id',
+	body('email').isEmail(),
+	body('first_name').notEmpty(),
+	body('last_name').notEmpty(),
+	(req, res, next) => {
+	(async() => {
+		const user = await User.findOne({id: req.params.id});
+		if (!user) return res.json({error: 'User not found'}, 404);
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.json({errors: errors.array()});
+		}
+
+		user.email = req.body.email;
+		user.first_name = req.body.first_name;
+		user.last_name = req.body.last_name;
+		await user.save();
+
+		return res.json(user);
+	})();
+});
+
 router.get('/', (req, res, next) => {
 	(async() => {
 		const users = await User.find();
@@ -56,6 +80,16 @@ router.get('/:id', (req, res, next) => {
 		if (!user) return res.json({error: 'User not found'}, 404);
 
 		return res.json(user);
+	})();
+});
+
+router.delete('/:id', (req, res, next) => {
+	(async() => {
+		const user = await User.findOne({id: req.params.id});
+		if (!user) return res.json({error: 'User not found'}, 404);
+
+		user.remove();
+		return res.send('User has been deleted');
 	})();
 });
 

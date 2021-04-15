@@ -1,5 +1,6 @@
 // Install
 > npm install
+---
 > npm install -g nodemon
 
 // Run
@@ -7,4 +8,5 @@
 
 // Generate secret
 > node
+---
 > require('crypto').randomBytes(64).toString('hex');

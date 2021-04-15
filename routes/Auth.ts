@@ -41,7 +41,7 @@ router.post(
 		}
 
 		const payload = user[0];
-		const accessToken = generateAccessToken({...payload});
+		const accessToken = generateAccessToken({...payload}, process.env.AUTH_TTL);
 		return res.json({access_token: accessToken});
 	})();
 });
@@ -78,7 +78,7 @@ router.post(
 				user.password = password;
 				await user.save();
 
-				const accessToken = generateAccessToken({...user});
+				const accessToken = generateAccessToken({...user}, process.env.AUTH_TTL);
 				return res.send({access_token: accessToken});
 			})();
 		});

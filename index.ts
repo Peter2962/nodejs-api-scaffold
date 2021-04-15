@@ -18,7 +18,8 @@ createConnection().then(() => {
 	const bodyParser = require('body-parser');
 
 	const corsOptions = {
-		origin: '*'
+		origin: '*',
+		allowedHeaders: ['Content-Type']
 	};
 
 	app.use(bodyParser.urlencoded({ extended: false }));
